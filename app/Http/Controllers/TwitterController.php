@@ -49,7 +49,7 @@ class TwitterController extends Controller
         $q ="%23".$hashtag->hashtag_name;
 
     	//Find tweets by hashtag
-    	$data = $twitter->get("search/tweets",["q"=>$q,"result_type"=> "recent","count"=> 5]);
+    	$data = $twitter->get("search/tweets",["q"=>$q,"result_type"=> "mixed"]);
     	if($data){
     		foreach($data->statuses as $key => $tw){
             // Follow user

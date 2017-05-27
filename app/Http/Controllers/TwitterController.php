@@ -47,13 +47,12 @@ class TwitterController extends Controller
         DB::table('hashtag')->where('id', $hashtag->id)->update(['release_flag' => 1]);
 
         $q ="%23".$hashtag->hashtag_name;
-
     	//Find tweets by hashtag
-    	$data = $twitter->get("search/tweets",["q"=>$q,"result_type"=> "mixed"]);
+    	$data = $twitter->get("search/tweets",["q"=>$q]);
+
     	if($data){
     		foreach($data->statuses as $key => $tw){
             // Follow user
-           		
             $add_friend = $twitter->post("friendships/create",["user_id"=>$tw->user->id,"follow"=> "true"]);
             $account = new Accounts();
        		$account->store($tw, $hashtag->id);
